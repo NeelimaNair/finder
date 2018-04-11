@@ -1,0 +1,79 @@
+{  
+   "restaurants":[  
+      {  
+         "userid1":{  
+            "restaurantName":"Burger King",
+            "address":"12 Choa Chu Kang North avenue 6",
+            "longitude":-128374628,
+            "latitude":89881239132
+         }
+      },
+      {  
+         "userid2":{  
+            "restaurantName":"Burger King",
+            "address":"20 Choa Chu Kang North avenue 2",
+            "longitude":-123123124628,
+            "latitude":112345138988
+         }
+      }
+   ],
+   "users":[  
+      {  
+         "userid3":{  
+            "displayName":"Yaoxin"
+         }
+      },
+      {  
+         "userid1":{  
+            "displayName":"Neelima"
+         }
+      },
+      {  
+         "userid2":{  
+            "displayName":"Priyanka"
+         }
+      }
+   ],
+   "chats":[  
+      {  
+         "userid1":[  
+            {  
+               "userid3":[  
+                  {  
+                     "userid":"userid3",
+                     "message":"Hello!"
+                  },
+                  {  
+                     "userid":"userid1",
+                     "message":"Hello! How can we help you?"
+                  },
+                  {  
+                     "userid":"userid3",
+                     "message":"Hello! I am looking for an Italian place to eat lunch."
+                  }
+               ]
+            }
+         ]
+      },
+      {  
+         "userid3":[  
+            {  
+               "userid1":[  
+                  {  
+                     "userid":"userid3",
+                     "message":"Hello!"
+                  },
+                  {  
+                     "userid":"userid1",
+                     "message":"Hello! How can we help you?"
+                  },
+                  {  
+                     "userid":"userid3",
+                     "message":"Hello! I am looking for an Italian place to eat lunch."
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}
