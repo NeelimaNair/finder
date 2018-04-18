@@ -8,5 +8,14 @@
 
 
 <ion-content padding>
+    <ion-item>
+        <ion-label>Resturant Name</ion-label>
+        <ion-input  [(ngModel)]="restaurant.restaurantName" placeholder="Restaurant Name"></ion-input>
+      </ion-item>
+    <ion-item>
+      <ion-label>Address</ion-label>
+      <ion-textarea [(ngModel)]="restaurant.address"></ion-textarea>
+    </ion-item>
 
+    <button ion-button block clear (click)="addRestaurant(restaurant)">Add</button>
 </ion-content>

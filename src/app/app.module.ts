@@ -7,16 +7,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { NewPlacePage } from '../pages/new-place/new-place';
+import { EditPlacePage } from '../pages/edit-place/edit-place';
 
 import { AngularFireModule } from 'angularfire2'; 
 import { FIREBASE_CONFIG } from './firebase.credentials'; 
-import { AngularFireDatabaseModule } from 'angularfire2/database'; 
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { RestaurantServiceProvider } from '../providers/restaurant-service/restaurant-service'; 
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    NewPlacePage
+    NewPlacePage,
+    EditPlacePage
   ],
   imports: [
     BrowserModule,
@@ -29,12 +32,14 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
   entryComponents: [
     MyApp,
     HomePage,
-    NewPlacePage
+    NewPlacePage,
+    EditPlacePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    RestaurantServiceProvider
   ]
 })
 export class AppModule {}

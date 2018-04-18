@@ -9,10 +9,10 @@ import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
-  selector: 'page-new-place',
-  templateUrl: 'new-place.html',
+  selector: 'page-edit-place',
+  templateUrl: 'edit-place.html',
 })
-export class NewPlacePage {
+export class EditPlacePage {
 
   restaurant: Restaurant = {
     userUid: '',
@@ -20,24 +20,32 @@ export class NewPlacePage {
     address:'',
     longitude:'',
     latitude:''
-
-}
+  }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db : AngularFireDatabase,
-  private restaurantService: RestaurantServiceProvider) {
-         
-  } 
+    private restaurantService: RestaurantServiceProvider) {
+  }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NewPlacePage');
+    console.log('ionViewDidLoad EditPlacePage');
+    this.restaurant = this.navParams.get('restaurant');
+    console.log('Names::'+this.restaurant.restaurantName);
   }
 
-  addRestaurant(restaurant: Restaurant){
+  updateRestaurant(restaurant: Restaurant){
     restaurant.userUid = 'Ands1278323';
-    this.restaurantService.addRestaurant(restaurant).then(
-      ref => {
+      this.restaurantService.updateRestaurant(restaurant).then(
+        ref => {
           this.navCtrl.setRoot(HomePage);
-    });
+        })
   }
+
+  removeRestaurant(restaurant: Restaurant){
+    restaurant.userUid = 'Ands1278323';
+      this.restaurantService.removeRestaurant(restaurant).then(
+        ref => {
+          this.navCtrl.setRoot(HomePage);
+        })
+  } 
 
 }
