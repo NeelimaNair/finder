@@ -13,13 +13,18 @@ import { AngularFireModule } from 'angularfire2';
 import { FIREBASE_CONFIG } from './firebase.credentials'; 
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { RestaurantServiceProvider } from '../providers/restaurant-service/restaurant-service'; 
+import { RoomsPage } from '../pages/rooms/rooms';
+import { MessagesPage } from '../pages/messages/messages';
+import { ChatServiceProvider } from '../providers/chat-service/chat-service';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     NewPlacePage,
-    EditPlacePage
+    EditPlacePage,
+    RoomsPage,
+    MessagesPage
   ],
   imports: [
     BrowserModule,
@@ -33,13 +38,16 @@ import { RestaurantServiceProvider } from '../providers/restaurant-service/resta
     MyApp,
     HomePage,
     NewPlacePage,
-    EditPlacePage
+    EditPlacePage,
+    RoomsPage,
+    MessagesPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RestaurantServiceProvider
+    RestaurantServiceProvider,
+    ChatServiceProvider
   ]
 })
 export class AppModule {}
