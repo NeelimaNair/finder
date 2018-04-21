@@ -4,10 +4,10 @@ import { NewPlacePage } from '../new-place/new-place';
 import { EditPlacePage } from '../edit-place/edit-place';
 import { Observable } from 'rxjs/Observable'; 
 import firebase from 'firebase';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { Restaurant } from '../../model/restaurant';
 import { RestaurantServiceProvider} from '../../providers/restaurant-service/restaurant-service';
-import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -22,7 +22,7 @@ export class HomePage {
 
   
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private restaurantService: RestaurantServiceProvider) {
+    private restaurantService: RestaurantServiceProvider, private geolocation: Geolocation) {
       this.restaurants = this.restaurantService.getRestaurantList()
       .snapshotChanges()
       .map(       
@@ -57,6 +57,13 @@ export class HomePage {
       console.log('Restaurant set');
         this.restaurant = restSnapshot.val();
     });
+
+    this.geolocation.getCurrentPosition().then((resp) => {
+      console.log(resp)
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
+
   }
 
 }

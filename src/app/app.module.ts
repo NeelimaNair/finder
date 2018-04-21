@@ -13,7 +13,8 @@ import { LoginPage } from '../pages/login/login';
 import { AngularFireModule } from 'angularfire2'; 
 import { FIREBASE_CONFIG } from './firebase.credentials'; 
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth'
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { Geolocation } from '@ionic-native/geolocation';
 import { RestaurantServiceProvider } from '../providers/restaurant-service/restaurant-service'; 
 
 
@@ -31,7 +32,7 @@ import { RestaurantServiceProvider } from '../providers/restaurant-service/resta
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
-    AngularFireAuthModule 
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -45,7 +46,8 @@ import { RestaurantServiceProvider } from '../providers/restaurant-service/resta
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RestaurantServiceProvider
+    RestaurantServiceProvider,
+    Geolocation
   ]
 })
 export class AppModule {}
