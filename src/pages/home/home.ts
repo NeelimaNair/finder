@@ -7,6 +7,7 @@ import firebase from 'firebase';
 
 import { Restaurant } from '../../model/restaurant';
 import { RestaurantServiceProvider} from '../../providers/restaurant-service/restaurant-service';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
