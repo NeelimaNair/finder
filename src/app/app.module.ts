@@ -16,6 +16,9 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Geolocation } from '@ionic-native/geolocation';
 import { RestaurantServiceProvider } from '../providers/restaurant-service/restaurant-service'; 
+import { RoomsPage } from '../pages/rooms/rooms';
+import { MessagesPage } from '../pages/messages/messages';
+import { ChatServiceProvider } from '../providers/chat-service/chat-service';
 
 
 @NgModule({
@@ -24,7 +27,9 @@ import { RestaurantServiceProvider } from '../providers/restaurant-service/resta
     HomePage,
     NewPlacePage,
     EditPlacePage,
-    LoginPage
+    LoginPage,
+    RoomsPage,
+    MessagesPage
   ],
   imports: [
     BrowserModule,
@@ -40,14 +45,17 @@ import { RestaurantServiceProvider } from '../providers/restaurant-service/resta
     HomePage,
     NewPlacePage,
     EditPlacePage,
-    LoginPage
+    LoginPage,
+    RoomsPage,
+    MessagesPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestaurantServiceProvider,
-    Geolocation
+    Geolocation,
+    ChatServiceProvider
   ]
 })
 export class AppModule {}

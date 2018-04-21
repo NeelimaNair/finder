@@ -25,6 +25,7 @@ export class LoginPage {
   async login(user: User){
     try{
       const result = await this.firebaseAuth.auth.signInWithEmailAndPassword(user.email, user.password);
+      console.log(result.uid);
       if(result.uid){
         this.navCtrl.push(HomePage);
       }

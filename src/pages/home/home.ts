@@ -8,6 +8,9 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 import { Restaurant } from '../../model/restaurant';
 import { RestaurantServiceProvider} from '../../providers/restaurant-service/restaurant-service';
+import { RoomsPage } from '../rooms/rooms';
+import { ChatServiceProvider } from '../../providers/chat-service/chat-service';
+import { MessagesPage } from '../messages/messages';
 
 @Component({
   selector: 'page-home',
@@ -19,10 +22,33 @@ export class HomePage {
   userUid: string;
   restaurant:   Restaurant;
 
+  /**
+   * TODO: Test data, to be removed
+   */
+  user:any = ({
+    userUid: 'user1',
+    name: 'user a1'
+  })
+  user2:any =({
+    userUid: 'user2',
+    name: 'user b2'
+  })
+  r:Restaurant = ({
+    userUid: 'user2',
+    restaurantName: 'McD',
+    address: 'address re',
+    longitude: '1',
+    latitude: '2'
+  }) as Restaurant;
+  /*********************************** */
 
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private restaurantService: RestaurantServiceProvider, private geolocation: Geolocation) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    private restaurantService: RestaurantServiceProvider, 
+    private geolocation: Geolocation, 
+    private csp: ChatServiceProvider
+  ) {
       this.restaurants = this.restaurantService.getRestaurantList()
       .snapshotChanges()
       .map(       
@@ -47,6 +73,28 @@ export class HomePage {
         this.navCtrl.push(NewPlacePage);
       }
     
+  }
+
+  viewChatRooms() {
+    this.navCtrl.push(RoomsPage, {
+      user: this.user2,
+    });
+  }
+
+  /**
+   * TODO: Move to proper location
+   */
+  beginChat(){
+    console.log('begin chat');
+    
+    this.csp.createOrGetRoom(this.user, this.r).subscribe(room => {
+      console.log('Room retrieved', room);
+      
+      this.navCtrl.push(MessagesPage, {
+        room: room,
+        user: this.user
+      });
+    });
   }
 
   ionViewDidLoad(){
