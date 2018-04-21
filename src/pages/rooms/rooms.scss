@@ -1,3 +1,14 @@
 page-rooms {
-
+    .chat-icon{
+        position: relative;
+    }
+    .notification-badge{
+        background-color: red;
+        border-radius: 100%;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        top: -3px;
+        right: -3px;
+    }
 }

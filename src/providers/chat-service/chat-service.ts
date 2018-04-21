@@ -71,4 +71,14 @@ export class ChatServiceProvider {
     let messageRef = this.db.list<message>('messages/' + chatId);
     messageRef.push(message);
   }
+
+  notifyReceiver(sender:string, receiver: string, time:string){
+    let receiverRoom = this.db.object('chatrooms/' + receiver + '/' + sender);
+    receiverRoom.update({lastUpdatedTime:time, isRead:false});
+  }
+
+  markRead(userId:string, chatId:string){
+    let roomRef = this.db.object('chatrooms/' + userId + '/' + chatId);
+      roomRef.update({isRead:true});
+  }
 }
