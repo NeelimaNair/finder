@@ -11,6 +11,7 @@ import { RestaurantServiceProvider} from '../../providers/restaurant-service/res
 import { RoomsPage } from '../rooms/rooms';
 import { ChatServiceProvider } from '../../providers/chat-service/chat-service';
 import { MessagesPage } from '../messages/messages';
+import { SingletonUserServiceProvider } from '../../providers/singleton-user-service/singleton-user-service';
 
 @Component({
   selector: 'page-home',
@@ -47,8 +48,10 @@ export class HomePage {
     public navParams: NavParams,
     private restaurantService: RestaurantServiceProvider, 
     private geolocation: Geolocation, 
-    private csp: ChatServiceProvider
+    private csp: ChatServiceProvider,
+    private singletonUser: SingletonUserServiceProvider
   ) {
+      this.userUid = this.singletonUser.getUserUid();
       this.restaurants = this.restaurantService.getRestaurantList()
       .snapshotChanges()
       .map(       
@@ -61,9 +64,9 @@ export class HomePage {
   }
 
   onLoadNewPlace(){    
-    this.userUid = 'Ands1278323';
     
-      console.log('Going into if');
+    
+      console.log('Going into if'+this.userUid);
      
       if(this.restaurant != null){
         console.log('In if');        
@@ -98,7 +101,7 @@ export class HomePage {
   }
 
   ionViewDidLoad(){
-    this.userUid = 'Ands1278323';
+    
     console.log('Ion View Did Load');
     const  restRef:firebase.database.Reference  = firebase.database().ref('restaurants/'+this.userUid);
     restRef.on('value', restSnapshot => {

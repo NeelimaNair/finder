@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Restaurant } from '../../model/restaurant';
 import { RestaurantServiceProvider} from '../../providers/restaurant-service/restaurant-service';
 import { HomePage } from '../home/home';
+import { SingletonUserServiceProvider } from '../../providers/singleton-user-service/singleton-user-service';
 
 @IonicPage()
 @Component({
@@ -23,7 +24,7 @@ export class EditPlacePage {
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db : AngularFireDatabase,
-    private restaurantService: RestaurantServiceProvider) {
+    private restaurantService: RestaurantServiceProvider, public singletonUser: SingletonUserServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -33,7 +34,7 @@ export class EditPlacePage {
   }
 
   updateRestaurant(restaurant: Restaurant){
-    restaurant.userUid = 'Ands1278323';
+    
       this.restaurantService.updateRestaurant(restaurant).then(
         ref => {
           this.navCtrl.setRoot(HomePage);
@@ -41,7 +42,7 @@ export class EditPlacePage {
   }
 
   removeRestaurant(restaurant: Restaurant){
-    restaurant.userUid = 'Ands1278323';
+    
       this.restaurantService.removeRestaurant(restaurant).then(
         ref => {
           this.navCtrl.setRoot(HomePage);

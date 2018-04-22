@@ -3,6 +3,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 import {User} from '../../model/user';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
+import { SingletonUserServiceProvider } from '../../providers/singleton-user-service/singleton-user-service'
 
 @Component({
   selector: 'page-login',
@@ -15,7 +16,8 @@ export class LoginPage {
     password: ''
   };
 
-  constructor(public navCtrl: NavController, private firebaseAuth: AngularFireAuth) {
+  constructor(public navCtrl: NavController, private firebaseAuth: AngularFireAuth, 
+  public singletonUser: SingletonUserServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -25,8 +27,10 @@ export class LoginPage {
   async login(user: User){
     try{
       const result = await this.firebaseAuth.auth.signInWithEmailAndPassword(user.email, user.password);
-      console.log(result.uid);
+      console.log(result.email);
       if(result.uid){
+        this.singletonUser.setUserUid(result.uid);
+        this.singletonUser.setUserName(result.email);
         this.navCtrl.push(HomePage);
       }
     }
