@@ -19,6 +19,7 @@ import { RestaurantServiceProvider } from '../providers/restaurant-service/resta
 import { RoomsPage } from '../pages/rooms/rooms';
 import { MessagesPage } from '../pages/messages/messages';
 import { ChatServiceProvider } from '../providers/chat-service/chat-service';
+import { SingletonUserServiceProvider } from '../providers/singleton-user-service/singleton-user-service';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { ChatServiceProvider } from '../providers/chat-service/chat-service';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestaurantServiceProvider,
     Geolocation,
-    ChatServiceProvider
+    ChatServiceProvider,
+    SingletonUserServiceProvider
   ]
 })
 export class AppModule {}

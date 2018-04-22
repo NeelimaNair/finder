@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { Restaurant } from '../../model/restaurant';
 import { RestaurantServiceProvider} from '../../providers/restaurant-service/restaurant-service';
+import { SingletonUserServiceProvider } from '../../providers/singleton-user-service/singleton-user-service';
 import { HomePage } from '../home/home';
 
 @IonicPage()
@@ -24,7 +25,7 @@ export class NewPlacePage {
 }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db : AngularFireDatabase,
-  private restaurantService: RestaurantServiceProvider) {
+  private restaurantService: RestaurantServiceProvider, public singletonUser : SingletonUserServiceProvider) {
          
   } 
 
@@ -33,7 +34,7 @@ export class NewPlacePage {
   }
 
   addRestaurant(restaurant: Restaurant){
-    restaurant.userUid = 'Ands1278323';
+    restaurant.userUid = this.singletonUser.getUserUid();
     this.restaurantService.addRestaurant(restaurant).then(
       ref => {
           this.navCtrl.setRoot(HomePage);
