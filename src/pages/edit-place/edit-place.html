@@ -17,7 +17,16 @@
         <ion-textarea [(ngModel)]="restaurant.address"></ion-textarea>
       </ion-item>
   
-      <button ion-button block clear (click)="updateRestaurant(restaurant)">Save</button>
-      <button ion-button block clear (click)="removeRestaurant(restaurant)">Delete</button>
+      <ion-grid>
+        <ion-row>
+          <ion-col style="text-align: center">
+            <button ion-button round (click)="updateRestaurant(restaurant)">Save</button>
+          </ion-col>
+          <ion-col style="text-align: center">
+            <button ion-button round (click)="removeRestaurant(restaurant)">Delete</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+            
   </ion-content>
   

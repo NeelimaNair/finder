@@ -19,4 +19,10 @@
 
 <ion-content padding>
   <h2>You are here</h2>
+  <ion-list>
+    <ion-item *ngFor="let rest of restaurants | async">
+      <p>{{rest.restaurantName}}</p>
+      <p>{{rest.address}}</p>
+    </ion-item>
+  </ion-list>
 </ion-content>
