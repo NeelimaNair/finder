@@ -6,7 +6,6 @@ import { UUID } from 'angular2-uuid';
 import { room } from '../../models/room';
 import { message } from '../../models/message';
 import { Restaurant } from '../../model/restaurant';
-import { Observable } from 'rxjs/observable';
 
 /*
   Generated class for the ChatServiceProvider provider.
@@ -22,63 +21,60 @@ export class ChatServiceProvider {
     console.log('Hello ChatServiceProvider Provider');
   }
 
-  getRoomList(userId: string){
+  getRoomList(userId: string) {
     return this.db.list<room>('chatrooms/' + userId);
   }
 
-  getMessges(chatId: string){
+  getMessges(chatId: string) {
     return this.db.list<message>('messages/' + chatId);
   }
 
-  createOrGetRoom(user:any, resturant: Restaurant): Observable<room> {
-    let room:room;
+  createOrGetRoom(user: any, resturant: Restaurant) {
     let roomRef = this.db.object('chatrooms/' + user.userUid + '/' + resturant.userUid);
-    return Observable.create(observer => {
-      roomRef.snapshotChanges().subscribe(data => {
-        if(data.payload.exists()){
-          room = ({
-            key: data.payload.key,
-            ...data.payload.val()
-          })
-        }
-        else{
-          const chatId = UUID.UUID();
-          
-          room = ({
-            name: resturant.restaurantName.toString(),
-            receiver: resturant.userUid,
-            chatId: chatId,
-          });
-          roomRef.set(room);
-          this.db.object('chatrooms/' + resturant.userUid + '/' + user.userUid).set(({
-            name: user.name,
-            receiver: user.userUid,
-            chatId:chatId,
-          }));
-        }
+    return roomRef.snapshotChanges().map(data => {
+      let room: room;
+      if (data.payload.exists()) {
+        room = ({
+          key: data.payload.key,
+          ...data.payload.val()
+        })
+      }
+      else {
+        const chatId = UUID.UUID();
 
-        observer.next(room);
-        observer.complete();
-      });
-    }) 
+        room = ({
+          name: resturant.restaurantName.toString(),
+          receiver: resturant.userUid,
+          chatId: chatId,
+        });
+        roomRef.set(room);
+        this.db.object('chatrooms/' + resturant.userUid + '/' + user.userUid).set(({
+          name: user.name,
+          receiver: user.userUid,
+          chatId: chatId,
+        }));
+      }
+
+      return room;
+    });
   }
 
-  getRoom(userId:string, chatId:string){
-    return this.db.object('chatrooms/' + userId +'/' + chatId);
+  getRoom(userId: string, chatId: string) {
+    return this.db.object('chatrooms/' + userId + '/' + chatId);
   }
 
-  sendMessage(chatId:string, message:message){
+  sendMessage(chatId: string, message: message) {
     let messageRef = this.db.list<message>('messages/' + chatId);
     messageRef.push(message);
   }
 
-  notifyReceiver(sender:string, receiver: string, time:string){
+  notifyReceiver(sender: string, receiver: string, time: string) {
     let receiverRoom = this.db.object('chatrooms/' + receiver + '/' + sender);
-    receiverRoom.update({lastUpdatedTime:time, isRead:false});
+    receiverRoom.update({ lastUpdatedTime: time, isRead: false });
   }
 
-  markRead(userId:string, chatId:string){
+  markRead(userId: string, chatId: string) {
     let roomRef = this.db.object('chatrooms/' + userId + '/' + chatId);
-      roomRef.update({isRead:true});
+    roomRef.update({ isRead: true });
   }
 }

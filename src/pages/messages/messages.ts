@@ -33,6 +33,9 @@ export class MessagesPage {
 
     this.messages = csp.getMessges(this.room.chatId).snapshotChanges().map(snapshots => {
       console.log(snapshots);
+      setTimeout(() => {
+        this.content.scrollToBottom(100);
+      }, 500);
 
       return snapshots.map<message>(snapshot => {
         return ({
@@ -51,9 +54,6 @@ export class MessagesPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MessagesPage');
-    setTimeout(() => {
-      this.content.scrollToBottom(0);
-    }, 500);
   }
 
   sendMessage() {
@@ -63,10 +63,6 @@ export class MessagesPage {
       this.csp.notifyReceiver(this.user.userUid, this.room.receiver, this.data.timestamp);
 
       this.data.message = '';
-
-      setTimeout(() => {
-        this.content.scrollToBottom(0);
-      }, 500);
     }
   }
 }

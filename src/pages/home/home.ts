@@ -21,6 +21,7 @@ export class HomePage {
 
   restaurants: Observable<Restaurant[]>;
   userUid: string;
+  userName: string;
   restaurant:   Restaurant;
 
   /**
@@ -53,6 +54,7 @@ export class HomePage {
     private singletonUser: SingletonUserServiceProvider
   ) {
       this.userUid = this.singletonUser.getUserUid();
+      this.userName = this.singletonUser.getUserName();
       this.restaurants = this.restaurantService.getRestaurantList()
       .snapshotChanges()
       .map(       
@@ -81,7 +83,11 @@ export class HomePage {
 
   viewChatRooms() {
     this.navCtrl.push(RoomsPage, {
-      user: this.user2,
+      // user: {
+      //   userUid: this.userUid,
+      //   name: this.userName
+      // },
+      user: this.user2
     });
   }
 
@@ -91,9 +97,14 @@ export class HomePage {
   beginChat(){
     console.log('begin chat');
     
-    this.csp.createOrGetRoom(this.user, this.r).subscribe(room => {
-      console.log('Room retrieved', room);
-      
+    let promise = new Promise(res => {
+      this.csp.createOrGetRoom(this.user, this.r)
+        .subscribe(room => {
+          console.log('Room retrieved', room);
+          res(room);
+        });
+    });
+    promise.then(room => {
       this.navCtrl.push(MessagesPage, {
         room: room,
         user: this.user
