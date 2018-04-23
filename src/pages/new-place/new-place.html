@@ -14,8 +14,8 @@
       </ion-item>
     <ion-item>
       <ion-label>Address</ion-label>
-      <ion-textarea [(ngModel)]="restaurant.address"></ion-textarea>
+      <ion-input id="autocomplete" [(ngModel)]="restaurant.address" placeholder="Restaurant Address"></ion-input>
     </ion-item>
 
-    <button ion-button block clear (click)="addRestaurant(restaurant)">Add</button>
+    <button ion-button block (click)="addRestaurant(restaurant)">Add</button>
 </ion-content>

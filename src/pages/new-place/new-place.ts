@@ -41,4 +41,11 @@ export class NewPlacePage {
     });
   }
 
+  /*
+  ngAfterViewInit() {
+    var input = document.getElementById('autocomplete').getElementsByTagName('input')[0];
+    var options = {componentRestrictions: {country: 'sg'}};
+    new google.maps.places.Autocomplete(input, options);
+}*/
+
 }
