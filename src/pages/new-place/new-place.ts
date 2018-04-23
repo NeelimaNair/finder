@@ -20,8 +20,8 @@ export class NewPlacePage {
     restaurantName:'',
     address:'',
     longitude:'',
-    latitude:''
-
+    latitude:'',
+    cuisine:''
 }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db : AngularFireDatabase,

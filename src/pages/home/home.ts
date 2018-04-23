@@ -39,7 +39,8 @@ export class HomePage {
     restaurantName: 'McD',
     address: 'address re',
     longitude: '1',
-    latitude: '2'
+    latitude: '2',
+    cuisine:''
   }) as Restaurant;
   /*********************************** */
 
@@ -110,7 +111,7 @@ export class HomePage {
     });
 
     this.geolocation.getCurrentPosition().then((resp) => {
-      console.log(resp)
+      console.log('resp:'+resp)
      }).catch((error) => {
        console.log('Error getting location', error);
      });

@@ -4,5 +4,5 @@ export interface Restaurant {
     address:string;
     longitude:string;
     latitude:string;
-
+    cuisine:string;
 }
