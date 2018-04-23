@@ -16,6 +16,9 @@
       <ion-label>Address</ion-label>
       <ion-input id="autocomplete" [(ngModel)]="restaurant.address" placeholder="Restaurant Address"></ion-input>
     </ion-item>
-
+    <ion-item>
+      <ion-label>Cuisine</ion-label>
+      <ion-input [(ngModel)]="restaurant.cuisine" placeholder="Restaurant Cuisine"></ion-input>
+    </ion-item>
     <button ion-button block (click)="addRestaurant(restaurant)">Add</button>
 </ion-content>
