@@ -7,18 +7,23 @@
   </ion-header>
   
   
-  <ion-content padding>
+  <ion-content padding no-bounce>
       <ion-item>
-          <ion-label>Resturant Name</ion-label>
+          <ion-label>Resturant Name: </ion-label>
           <ion-input  [(ngModel)]="restaurant.restaurantName" placeholder="Restaurant Name"></ion-input>
         </ion-item>
       <ion-item>
-        <ion-label>Address</ion-label>
+        <ion-label>Address: </ion-label>
         <ion-textarea [(ngModel)]="restaurant.address"></ion-textarea>
       </ion-item>
       <ion-item>
-        <ion-label>Cuisine</ion-label>
+        <ion-label>Cuisine: </ion-label>
         <ion-textarea [(ngModel)]="restaurant.cuisine"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label>Phone Number: </ion-label>
+        <ion-input type="tel" maxlength=“10” [(ngModel)]="restaurant.phone" pattern="^\d{8}$"  
+        required></ion-input>
       </ion-item>
   
       <ion-grid>
