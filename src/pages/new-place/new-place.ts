@@ -19,8 +19,8 @@ export class NewPlacePage {
     userUid: '',
     restaurantName:'',
     address:'',
-    longitude:'',
-    latitude:'',
+    longitude:null,
+    latitude:null,
     cuisine:'',
     phone:''
 }

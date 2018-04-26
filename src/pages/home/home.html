@@ -19,6 +19,17 @@
 
 <ion-content padding>
   <h2>You are here</h2>
+  <!-- <ion-item>
+    <ion-label>Enter Address</ion-label>
+    <ion-input id='txtHome' type='text'></ion-input>
+  </ion-item> -->
+
+  <ion-item>
+      <agm-map [latitude]="lat" [longitude]="lng">
+          <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+        </agm-map>
+  </ion-item>
+
   <ion-list>
     <ion-item *ngFor="let rest of restaurants | async"
     detail-push navPush="ViewPlacePage" [navParams]="{rest:rest}"> 

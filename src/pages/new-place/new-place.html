@@ -10,19 +10,27 @@
 <ion-content padding>
     <ion-item>
         <ion-label>Resturant Name: </ion-label>
-        <ion-input  [(ngModel)]="restaurant.restaurantName" placeholder="Restaurant Name"></ion-input>
+        <ion-input  [(ngModel)]="restaurant.restaurantName"></ion-input>
       </ion-item>
     <ion-item>
       <ion-label>Address: </ion-label>
-      <ion-input id="autocomplete" [(ngModel)]="restaurant.address" placeholder="Restaurant Address"></ion-input>
+      <ion-input id="autocomplete" [(ngModel)]="restaurant.address"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Cuisine: </ion-label>
-      <ion-input [(ngModel)]="restaurant.cuisine" placeholder="Restaurant Cuisine"></ion-input>
+      <ion-input [(ngModel)]="restaurant.cuisine"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Latitude: </ion-label>
+        <ion-input [(ngModel)]="restaurant.latitude"></ion-input>
+      </ion-item>
+    <ion-item>
+        <ion-label>Longitude: </ion-label>
+        <ion-input [(ngModel)]="restaurant.longitude"></ion-input>
     </ion-item>
     <ion-item> 
       <ion-label>Phone: </ion-label>
-      <ion-input type="tel" maxlength=“9” placeholder="XXXXXXXX" [(ngModel)]="restaurant.phone" pattern="^\d{8}$" 
+      <ion-input type="tel" maxlength=“9”  [(ngModel)]="restaurant.phone" pattern="^\d{8}$" 
       required></ion-input>
     </ion-item>
     <button ion-button block (click)="addRestaurant(restaurant)">Add</button>

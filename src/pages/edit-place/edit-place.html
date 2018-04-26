@@ -21,6 +21,14 @@
         <ion-textarea [(ngModel)]="restaurant.cuisine"></ion-textarea>
       </ion-item>
       <ion-item>
+          <ion-label>Latitude: </ion-label>
+          <ion-input [(ngModel)]="restaurant.latitude"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>Longitude: </ion-label>
+          <ion-input [(ngModel)]="restaurant.longitude"></ion-input>
+      </ion-item>
+      <ion-item>
         <ion-label>Phone Number: </ion-label>
         <ion-input type="tel" maxlength=“10” [(ngModel)]="restaurant.phone" pattern="^\d{8}$"  
         required></ion-input>

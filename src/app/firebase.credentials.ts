@@ -6,3 +6,8 @@ export const FIREBASE_CONFIG = {
   storageBucket: "",
   messagingSenderId: "636066330815"    
   };
+
+  export const GOOGLE_MAPS_CONFIG = {
+    apiKey: 'AIzaSyB_rVmNC3zGlo78aFkEH3l70Gy1RzOGvvs',
+    libraries: ['places']
+  }

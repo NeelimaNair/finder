@@ -22,8 +22,8 @@ export class EditPlacePage {
     userUid: '',
     restaurantName:'',
     address:'',
-    longitude:'',
-    latitude:'',
+    longitude:0,
+    latitude:0,
     cuisine:'',
     phone:''
   }

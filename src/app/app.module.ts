@@ -11,10 +11,13 @@ import { EditPlacePage } from '../pages/edit-place/edit-place';
 import { LoginPage } from '../pages/login/login';
 
 import { AngularFireModule } from 'angularfire2'; 
-import { FIREBASE_CONFIG } from './firebase.credentials'; 
+import { FIREBASE_CONFIG, GOOGLE_MAPS_CONFIG} from './firebase.credentials'; 
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Geolocation } from '@ionic-native/geolocation';
+import { AgmCoreModule } from '@agm/core';
+
+
 import { RestaurantServiceProvider } from '../providers/restaurant-service/restaurant-service'; 
 import { RoomsPage } from '../pages/rooms/rooms';
 import { MessagesPage } from '../pages/messages/messages';
@@ -38,7 +41,8 @@ import { SingletonUserServiceProvider } from '../providers/singleton-user-servic
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AgmCoreModule.forRoot(GOOGLE_MAPS_CONFIG),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -57,7 +61,8 @@ import { SingletonUserServiceProvider } from '../providers/singleton-user-servic
     RestaurantServiceProvider,
     Geolocation,
     ChatServiceProvider,
-    SingletonUserServiceProvider
+    SingletonUserServiceProvider,
+    // AgmCoreModule
   ]
 })
 export class AppModule {}

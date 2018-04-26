@@ -23,6 +23,9 @@ export class HomePage {
   userUid: string;
   userName: string;
   restaurant:   Restaurant;
+  location: { lat: number, lng: number } = { lat: 1.3243817999999998, lng: 103.86480030000001 };
+  
+  
 
   /**
    * TODO: Test data, to be removed
@@ -39,8 +42,8 @@ export class HomePage {
     userUid: 'user2',
     restaurantName: 'McD',
     address: 'address re',
-    longitude: '1',
-    latitude: '2',
+    longitude: 1,
+    latitude: 2,
     cuisine:'',
     phone:''
   }) as Restaurant;
@@ -122,11 +125,17 @@ export class HomePage {
         this.restaurant = restSnapshot.val();
     });
 
-    this.geolocation.getCurrentPosition().then((resp) => {
-      console.log('resp:'+resp)
+    // const lat = 1.323972;
+    // const lng = 103.864780;
+
+    this.geolocation.getCurrentPosition().then((location) => {
+      this.location.lat = location.coords.latitude;
+      this.location.lng = location.coords.longitude;
      }).catch((error) => {
        console.log('Error getting location', error);
      });
+
+
 
   }
 
