@@ -8,6 +8,8 @@ import { RestaurantServiceProvider} from '../../providers/restaurant-service/res
 import { HomePage } from '../home/home';
 import { SingletonUserServiceProvider } from '../../providers/singleton-user-service/singleton-user-service';
 
+
+
 @IonicPage()
 @Component({
   selector: 'page-edit-place',
@@ -15,13 +17,15 @@ import { SingletonUserServiceProvider } from '../../providers/singleton-user-ser
 })
 export class EditPlacePage {
 
+  
   restaurant: Restaurant = {
     userUid: '',
     restaurantName:'',
     address:'',
     longitude:'',
     latitude:'',
-    cuisine:''
+    cuisine:'',
+    phone:''
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db : AngularFireDatabase,
@@ -35,8 +39,7 @@ export class EditPlacePage {
   }
 
   updateRestaurant(restaurant: Restaurant){
-    
-      this.restaurantService.updateRestaurant(restaurant).then(
+        this.restaurantService.updateRestaurant(restaurant).then(
         ref => {
           this.navCtrl.setRoot(HomePage);
         })
@@ -49,5 +52,5 @@ export class EditPlacePage {
           this.navCtrl.setRoot(HomePage);
         })
   } 
-
+  
 }

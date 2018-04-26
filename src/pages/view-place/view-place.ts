@@ -26,7 +26,8 @@ export class ViewPlacePage {
     address:'',
     longitude:'',
     latitude:'',
-    cuisine:''
+    cuisine:'',
+    phone:''
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db : AngularFireDatabase,

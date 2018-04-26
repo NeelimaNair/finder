@@ -21,7 +21,8 @@ export class NewPlacePage {
     address:'',
     longitude:'',
     latitude:'',
-    cuisine:''
+    cuisine:'',
+    phone:''
 }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db : AngularFireDatabase,

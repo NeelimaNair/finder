@@ -41,7 +41,8 @@ export class HomePage {
     address: 'address re',
     longitude: '1',
     latitude: '2',
-    cuisine:''
+    cuisine:'',
+    phone:''
   }) as Restaurant;
   /*********************************** */
 
