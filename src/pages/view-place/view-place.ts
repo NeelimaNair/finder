@@ -4,6 +4,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
 
 import { Restaurant } from '../../model/restaurant';
 import { SingletonUserServiceProvider } from '../../providers/singleton-user-service/singleton-user-service';
+import { MessagesPage } from '../messages/messages';
+import { ChatServiceProvider } from '../../providers/chat-service/chat-service';
 // import { AgmMap, AgmMarker } from '@agm/core';
 
 /**
@@ -36,7 +38,7 @@ export class ViewPlacePage {
   lng: number = 7.809007;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db : AngularFireDatabase,
-    public singletonUser: SingletonUserServiceProvider) {
+    public singletonUser: SingletonUserServiceProvider, public csp: ChatServiceProvider) {
       this.restaurant = this.navParams.get('rest');
       console.log(this.restaurant)
       // this.lat = +this.restaurant.latitude;
@@ -49,5 +51,25 @@ export class ViewPlacePage {
     
   }
 
-
+  beginChat(){
+    console.log('begin chat');
+    
+    let user = {
+      userUid: this.singletonUser.getUserUid(),
+      name: this.singletonUser.getUserName()
+    }
+    let promise = new Promise(res => {
+      this.csp.createOrGetRoom(user, this.restaurant)
+        .subscribe(room => {
+          console.log('Room retrieved', room);
+          res(room);
+        });
+    });
+    promise.then(room => {
+      this.navCtrl.push(MessagesPage, {
+        room: room,
+        user: user
+      });
+    });
+  }
 }

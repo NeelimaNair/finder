@@ -1,0 +1,41 @@
+{
+  "project_info": {
+    "project_number": "636066330815",
+    "firebase_url": "https://finderrealtime.firebaseio.com",
+    "project_id": "finderrealtime"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636066330815:android:3a29b4505349b117",
+        "android_client_info": {
+          "package_name": "mobilewireless.pt1.finder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636066330815-rl3he0g7n6em9620pgdaihupbp1ufqnt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaNH4AZWDg-j3yRgeJvMVw3oIrPB7DK-I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
