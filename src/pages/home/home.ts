@@ -24,30 +24,6 @@ export class HomePage {
   userName: string;
   restaurant:   Restaurant;
   location: { lat: number, lng: number } = { lat: 1.3243817999999998, lng: 103.86480030000001 };
-  
-  
-
-  /**
-   * TODO: Test data, to be removed
-   */
-  user:any = ({
-    userUid: 'user1',
-    name: 'user a1'
-  })
-  user2:any =({
-    userUid: 'user2',
-    name: 'user b2'
-  })
-  r:Restaurant = ({
-    userUid: 'user2',
-    restaurantName: 'McD',
-    address: 'address re',
-    longitude: 1,
-    latitude: 2,
-    cuisine:'',
-    phone:''
-  }) as Restaurant;
-  /*********************************** */
 
   constructor(
     public navCtrl: NavController, 
@@ -87,32 +63,10 @@ export class HomePage {
 
   viewChatRooms() {
     this.navCtrl.push(RoomsPage, {
-      // user: {
-      //   userUid: this.userUid,
-      //   name: this.userName
-      // },
-      user: this.user2
-    });
-  }
-
-  /**
-   * TODO: Move to proper location
-   */
-  beginChat(){
-    console.log('begin chat');
-    
-    let promise = new Promise(res => {
-      this.csp.createOrGetRoom(this.user, this.r)
-        .subscribe(room => {
-          console.log('Room retrieved', room);
-          res(room);
-        });
-    });
-    promise.then(room => {
-      this.navCtrl.push(MessagesPage, {
-        room: room,
-        user: this.user
-      });
+      user: {
+        userUid: this.userUid,
+        name: this.userName
+      },
     });
   }
 
