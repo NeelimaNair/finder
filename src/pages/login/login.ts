@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import {User} from '../../model/user';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
+import { RegisterPage } from '../register/register';
 import { SingletonUserServiceProvider } from '../../providers/singleton-user-service/singleton-user-service'
 
 @Component({
@@ -17,7 +18,7 @@ export class LoginPage {
   };
 
   constructor(public navCtrl: NavController, private firebaseAuth: AngularFireAuth, 
-  public singletonUser: SingletonUserServiceProvider) {
+  public singletonUser: SingletonUserServiceProvider, private toast: ToastController) {
   }
 
   ionViewDidLoad() {
@@ -33,10 +34,17 @@ export class LoginPage {
         this.singletonUser.setUserName(result.email);
         this.navCtrl.push(HomePage);
       }
+    }catch(e){
+      console.error(e);
+      this.toast.create({
+        message: e.message,
+        duration:4000
+      }).present();
     }
-    catch(error){
-      console.log(error);
-    }
+  }
+
+  register(){
+    this.navCtrl.push('RegisterPage');
   }
 
 }
