@@ -34,4 +34,5 @@ export class RestaurantServiceProvider {
     return this.restaurantListRef.remove(restaurant.userUid);
   }
 
+
 }

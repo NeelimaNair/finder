@@ -6,4 +6,5 @@ export interface Restaurant {
     latitude:number;
     cuisine:string;
     phone:string;
+    unit:string;
 }
