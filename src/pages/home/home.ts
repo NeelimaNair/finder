@@ -71,18 +71,16 @@ export class HomePage {
   }
 
   ionViewDidLoad(){
-    
     console.log('Ion View Did Load');
+    //Loading All Resturants
     const  restRef:firebase.database.Reference  = firebase.database().ref('restaurants/'+this.userUid);
     restRef.on('value', restSnapshot => {
       console.log('Restaurant set');
         this.restaurant = restSnapshot.val();
     });
-
-    // const lat = 1.323972;
-    // const lng = 103.864780;
-
+    //Current Location
     this.geolocation.getCurrentPosition().then((location) => {
+      console.log(location)
       this.location.lat = location.coords.latitude;
       this.location.lng = location.coords.longitude;
      }).catch((error) => {

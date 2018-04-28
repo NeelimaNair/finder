@@ -33,13 +33,14 @@ export class ViewPlacePage {
     unit:''
   }
   // location: { lat: number, lng: number } = { lat: 1.3243817999999998, lng: 103.86480030000001 };
-  // lat : number;
-  // lng : number;
-  lat: number = 51.678418;
-  lng: number = 7.809007;
+  lat : number;
+  lng : number;
+  // lat: number = 51.678418;
+  // lng: number = 7.809007;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db : AngularFireDatabase,
-    public singletonUser: SingletonUserServiceProvider, public csp: ChatServiceProvider) {
+    public singletonUser: SingletonUserServiceProvider, public csp: ChatServiceProvider
+  ) {
       this.restaurant = this.navParams.get('rest');
       console.log(this.restaurant)
       // this.lat = +this.restaurant.latitude;
