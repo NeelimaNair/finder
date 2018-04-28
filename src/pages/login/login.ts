@@ -5,6 +5,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 import { SingletonUserServiceProvider } from '../../providers/singleton-user-service/singleton-user-service'
+import { PnProvider } from '../../providers/pn/pn';
 
 @Component({
   selector: 'page-login',
@@ -18,7 +19,8 @@ export class LoginPage {
   };
 
   constructor(public navCtrl: NavController, private firebaseAuth: AngularFireAuth, 
-  public singletonUser: SingletonUserServiceProvider, private toast: ToastController) {
+  public singletonUser: SingletonUserServiceProvider, private toast: ToastController,
+  private pn: PnProvider) {
   }
 
   ionViewDidLoad() {
@@ -32,6 +34,9 @@ export class LoginPage {
       if(result.uid){
         this.singletonUser.setUserUid(result.uid);
         this.singletonUser.setUserName(result.email);
+
+        this.pn.saveToken(result.uid);
+
         this.navCtrl.push(HomePage);
       }
     }catch(e){

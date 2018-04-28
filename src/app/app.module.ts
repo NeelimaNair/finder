@@ -25,6 +25,9 @@ import { ChatServiceProvider } from '../providers/chat-service/chat-service';
 import { SingletonUserServiceProvider } from '../providers/singleton-user-service/singleton-user-service';
 import { AutocompletePage } from '../pages/autocomplete/autocomplete';
 import { NearbyResturantService } from '../providers/restaurant-service/nearbyresturant-service';
+import { PnProvider } from '../providers/pn/pn';
+import { Push } from '@ionic-native/push';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,10 @@ import { NearbyResturantService } from '../providers/restaurant-service/nearbyre
     Geolocation,
     ChatServiceProvider,
     SingletonUserServiceProvider,
-    NearbyResturantService
+    NearbyResturantService,
+    PnProvider,
+    Push,
+    LocalNotifications,
   ]
 })
 export class AppModule {}
