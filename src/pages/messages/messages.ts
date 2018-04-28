@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { ChatServiceProvider } from '../../providers/chat-service/chat-service';
 import { message } from '../../models/message';
 import { room } from '../../models/room';
+import { PnProvider } from '../../providers/pn/pn';
 
 /**
  * Generated class for the MessagesPage page.
@@ -26,7 +27,8 @@ export class MessagesPage {
 
   data: message;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private csp: ChatServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private csp: ChatServiceProvider,
+   private pn:PnProvider) {
     this.room = navParams.get('room');
     this.user = navParams.get('user');
     console.log(this.room, this.user);
@@ -61,6 +63,8 @@ export class MessagesPage {
       this.data.timestamp = Date();
       this.csp.sendMessage(this.room.chatId, this.data);
       this.csp.notifyReceiver(this.user.userUid, this.room.receiver, this.data.timestamp);
+      
+      this.pn.sendPn(this.room.receiver, this.user.name, this.data.message);
 
       this.data.message = '';
     }
