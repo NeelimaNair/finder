@@ -23,6 +23,7 @@ import { RoomsPage } from '../pages/rooms/rooms';
 import { MessagesPage } from '../pages/messages/messages';
 import { ChatServiceProvider } from '../providers/chat-service/chat-service';
 import { SingletonUserServiceProvider } from '../providers/singleton-user-service/singleton-user-service';
+import { AutocompletePage } from '../pages/autocomplete/autocomplete';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { SingletonUserServiceProvider } from '../providers/singleton-user-servic
     EditPlacePage,
     LoginPage,
     RoomsPage,
-    MessagesPage
+    MessagesPage,
+    AutocompletePage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { SingletonUserServiceProvider } from '../providers/singleton-user-servic
     EditPlacePage,
     LoginPage,
     RoomsPage,
-    MessagesPage
+    MessagesPage,
+    AutocompletePage
   ],
   providers: [
     StatusBar,

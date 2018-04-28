@@ -29,7 +29,8 @@ export class ViewPlacePage {
     longitude:0,
     latitude:0,
     cuisine:'',
-    phone:''
+    phone:'',
+    unit:''
   }
   // location: { lat: number, lng: number } = { lat: 1.3243817999999998, lng: 103.86480030000001 };
   // lat : number;

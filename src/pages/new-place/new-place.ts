@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database'; 
 import { Observable } from 'rxjs/Observable'; 
 
@@ -7,6 +7,7 @@ import { Restaurant } from '../../model/restaurant';
 import { RestaurantServiceProvider} from '../../providers/restaurant-service/restaurant-service';
 import { SingletonUserServiceProvider } from '../../providers/singleton-user-service/singleton-user-service';
 import { HomePage } from '../home/home';
+import { AutocompletePage } from '../autocomplete/autocomplete';
 
 @IonicPage()
 @Component({
@@ -22,11 +23,14 @@ export class NewPlacePage {
     longitude:null,
     latitude:null,
     cuisine:'',
-    phone:''
+    phone:'',
+    unit:''
 }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db : AngularFireDatabase,
-  private restaurantService: RestaurantServiceProvider, public singletonUser : SingletonUserServiceProvider) {
+  private restaurantService: RestaurantServiceProvider, 
+  private singletonUser : SingletonUserServiceProvider,
+  public modalCtrl:ModalController) {
          
   } 
 
@@ -41,6 +45,26 @@ export class NewPlacePage {
           this.navCtrl.setRoot(HomePage);
     });
   }
+
+  showAddressModal () {
+    let modal = this.modalCtrl.create(AutocompletePage);
+    let me = this;
+    modal.onDidDismiss(data => {
+      this.restaurant.address = data;      
+      this.geoCode(this.restaurant.address);
+    });
+    modal.present();
+  }
+
+  //convert Address string to lat and long
+  geoCode(address:any) {
+    let geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'address': address }, (results, status) => {
+    this.restaurant.latitude = results[0].geometry.location.lat();
+    this.restaurant.longitude = results[0].geometry.location.lng();
+    //alert("Got the LAT: " + this.restaurant.latitude + ", long: " + this.restaurant.longitude);
+   });
+ }
 
   /*
   ngAfterViewInit() {
