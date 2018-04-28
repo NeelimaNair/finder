@@ -39,7 +39,6 @@ export class EditPlacePage {
     let me = this;
     modal.onDidDismiss(data => {
       this.restaurant.address = data;
-      alert('address;'+this.restaurant.address);
       this.geoCode(this.restaurant.address);
     });
     modal.present();

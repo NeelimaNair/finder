@@ -9,6 +9,7 @@ import {} from '@types/googlemaps';
 
 import { Restaurant } from '../../model/restaurant';
 import { NearbyRestaurant } from '../../model/nearbyRestaurant';
+import { RegNearByRestaurant } from '../../model/regNearByRestaurant';
 import { RestaurantServiceProvider} from '../../providers/restaurant-service/restaurant-service';
 import { RoomsPage } from '../rooms/rooms';
 import { ChatServiceProvider } from '../../providers/chat-service/chat-service';
@@ -29,6 +30,9 @@ export class HomePage {
   restaurant:   Restaurant;
   location: { lat: number, lng: number } = { lat: 1.292304, lng: 103.7765534 };
   nearbyRestaurants: NearbyRestaurant[] = [];
+  regNearByRestaurants : RegNearByRestaurant[] = [];
+  
+
   map: any;
 
   constructor(
@@ -42,14 +46,14 @@ export class HomePage {
   ) {
       this.userUid = this.singletonUser.getUserUid();
       this.userName = this.singletonUser.getUserName();
-      this.restaurants = this.restaurantService.getRestaurantList()
+      /* this.restaurants = this.restaurantService.getRestaurantList()
       .snapshotChanges()
       .map(       
         changes => {         
           return changes.map( c=> ({           
             key: c.payload.key, ...c.payload.val()         
           }))       
-      });       
+      });    */    
   }
 
   onLoadNewPlace(){    
@@ -131,13 +135,64 @@ export class HomePage {
        }
      });
 
-    //Loading All Resturants
+     //Loading All restaurants
+     console.log('Start#################');
+     this.restaurants = this.restaurantService.getRestaurantList().valueChanges();
+     this.restaurants.subscribe(snapshots => {
+        snapshots.forEach(snapshot => {
+          console.log(snapshot.restaurantName);
+          console.log(this.getDistanceFromLatLonInKm(snapshot.latitude,snapshot.longitude,
+            this.location.lat,this.location.lng));       
+            var tempRegRest : RegNearByRestaurant = {
+              distance: this.getDistanceFromLatLonInKm(snapshot.latitude,snapshot.longitude,
+                this.location.lat,this.location.lng),
+              restaurantName:snapshot.restaurantName,
+              address:snapshot.address ,
+              displayDistance:  this.getDistanceFromLatLonInKm(snapshot.latitude,snapshot.longitude,
+                this.location.lat,this.location.lng).toFixed(3)
+            };
+            var flag = true;
+            this.regNearByRestaurants.forEach(element => {
+              if(element.restaurantName == snapshot.restaurantName && 
+              element.address == snapshot.address ){
+                  flag = false;
+              }
+            });  
+            if(flag && tempRegRest.distance < 5){
+              this.regNearByRestaurants.push(tempRegRest);
+            }
+            
+        });
+        console.log('Done#################'+this.regNearByRestaurants);        
+     });
+     
+
+
+    //Loading Specific Resturants
     const  restRef:firebase.database.Reference  = firebase.database().ref('restaurants/'+this.userUid);
     restRef.on('value', restSnapshot => {
         this.restaurant = restSnapshot.val();
     });
      console.log('Resturants',this.restaurants)
   }
+
+  getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = this.deg2rad(lat2-lat1);  // deg2rad below
+    var dLon =this. deg2rad(lon2-lon1); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    return d;
+   }
+
+   deg2rad(deg) {
+    return deg * (Math.PI/180)
+   }
 
 
   ionViewDidEnter(){
