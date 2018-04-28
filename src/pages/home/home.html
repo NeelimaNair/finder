@@ -18,18 +18,19 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>You are here</h2>
   <!-- <ion-item>
     <ion-label>Enter Address</ion-label>
     <ion-input id='txtHome' type='text'></ion-input>
   </ion-item> -->
 
-  <ion-item>
-      <agm-map [latitude]="location.lat" [longitude]="location.lng" [zoom]="13">
+<ion-item>
+    <div id='map'></div>
+      <!-- <agm-map [latitude]="location.lat" [longitude]="location.lng" [zoom]="13">
           <agm-marker [latitude]="location.lat" [longitude]="location.lng"></agm-marker>
           <agm-marker *ngFor="let rest of restaurants | async"
           [latitude]="rest.latitude" [longitude]="rest.longitude"></agm-marker>
-        </agm-map>
+        </agm-map> -->
+        
   </ion-item>
 
   <ion-list>
@@ -39,4 +40,6 @@
       <p>{{rest.address}}</p>
     </ion-item>
   </ion-list>
-</ion-content>
+  
+</ion-content> 
+

@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild ,ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { NewPlacePage } from '../new-place/new-place';
 import { EditPlacePage } from '../edit-place/edit-place';
 import { Observable } from 'rxjs/Observable'; 
 import firebase from 'firebase';
-import { Geolocation } from '@ionic-native/geolocation';
+import { Geolocation, GeolocationOptions ,Geoposition ,PositionError  } from '@ionic-native/geolocation';
+import {} from '@types/googlemaps';
 
 import { Restaurant } from '../../model/restaurant';
+import { NearbyRestaurant } from '../../model/nearbyRestaurant';
 import { RestaurantServiceProvider} from '../../providers/restaurant-service/restaurant-service';
 import { RoomsPage } from '../rooms/rooms';
 import { ChatServiceProvider } from '../../providers/chat-service/chat-service';
 import { MessagesPage } from '../messages/messages';
 import { SingletonUserServiceProvider } from '../../providers/singleton-user-service/singleton-user-service';
+// import _ from 'lodash';
+declare var google;
 
 @Component({
   selector: 'page-home',
@@ -23,7 +27,9 @@ export class HomePage {
   userUid: string;
   userName: string;
   restaurant:   Restaurant;
-  location: { lat: number, lng: number } = { lat: 1.3243817999999998, lng: 103.86480030000001 };
+  location: { lat: number, lng: number } = { lat: 1.292304, lng: 103.7765534 };
+  nearbyResturants: NearbyRestaurant;
+  map: any;
 
   constructor(
     public navCtrl: NavController, 
@@ -47,8 +53,6 @@ export class HomePage {
   }
 
   onLoadNewPlace(){    
-    
-    
       console.log('Going into if'+this.userUid);
      
       if(this.restaurant != null){
@@ -70,8 +74,17 @@ export class HomePage {
     });
   }
 
+  createMarker(lat,lng){
+    let marker = new google.maps.Marker({
+      position: { lat, lng },
+      map: this.map,
+      title: 'Hello World!'
+    });
+  }
+
   ionViewDidLoad(){
     console.log('Ion View Did Load');
+    let self = this;
     //Loading All Resturants
     const  restRef:firebase.database.Reference  = firebase.database().ref('restaurants/'+this.userUid);
     restRef.on('value', restSnapshot => {
@@ -87,8 +100,29 @@ export class HomePage {
        console.log('Error getting location', error);
      });
 
+    const pyrmont = new google.maps.LatLng(this.location.lat,this.location.lng);
+    this.map = new google.maps.Map(document.getElementById('map'), { center: pyrmont, zoom: 15 });
+    this.createMarker(this.location.lat,this.location.lng);
 
+    const request = {
+      location: pyrmont,
+      radius: '500',
+      query: 'restaurant'
+    };
+     let placesService = new google.maps.places.PlacesService(this.map)
+     placesService.textSearch(request, (results, status) => {
+       if(status === 'OK'){
+         results.map(resturant => {
+           console.log(resturant)
+           const restLat = resturant.geometry.location.lat()
+           const restLng = resturant.geometry.location.lng()
+           self.createMarker(restLat,restLng)
+          //  self.nearbyResturants.push(resturant);
+         })
+       }
+     });
 
+     console.log(this.nearbyResturants);
   }
 
 }
