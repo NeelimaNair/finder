@@ -76,13 +76,26 @@ export class HomePage {
     });
   }
 
-  createMarker(lat,lng){
+  createMarker(lat,lng, index){
+    // console.log(index.toString())
     let marker = new google.maps.Marker({
       position: { lat, lng },
+      animation: google.maps.Animation.DROP,
+      label: index.toString(),
       map: this.map,
-      title: 'Hello World!'
+      title: 'Resturant'
     });
   }
+
+  // customMarker(lat,lng){
+  //   let marker = new google.maps.Marker({
+  //     position: { lat, lng },
+  //     animation: google.maps.Animation.DROP,
+  //     label: 'R',
+  //     map: this.map,
+  //     title: 'Resturant'
+  //   });
+  // }
 
   ionViewDidLoad(){
     console.log('Ion View Did Load');
@@ -98,8 +111,8 @@ export class HomePage {
      });
 
     const pyrmont = new google.maps.LatLng(this.location.lat,this.location.lng);
-    this.map = new google.maps.Map(document.getElementById('map'), { center: pyrmont, zoom: 15 });
-    this.createMarker(this.location.lat,this.location.lng);
+    this.map = new google.maps.Map(document.getElementById('map'), { center: pyrmont, zoom: 12 });
+    this.createMarker(this.location.lat,this.location.lng,21);
     
     const request = {
       location: pyrmont,
@@ -109,12 +122,13 @@ export class HomePage {
      let placesService = new google.maps.places.PlacesService(this.map)
      placesService.textSearch(request, (results, status) => {
        if(status === 'OK'){
-         results.map(resturant => {
+         results.map((resturant,index) => {
            const restLat = resturant.geometry.location.lat()
            const restLng = resturant.geometry.location.lng()
-           resturant.lat = resturant.geometry.location.lat();
-           resturant.lng = resturant.geometry.location.lng();
-           self.createMarker(restLat,restLng)
+           resturant.lat = restLat;
+           resturant.lng = restLng;
+           resturant.index = index+1;
+           self.createMarker(restLat,restLng,resturant.index)
            self.nearbyRestaurantService.addPlace(resturant);
          })
        }
