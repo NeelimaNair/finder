@@ -29,9 +29,9 @@
 
     <p padding-left>Registered Nearby Resturants</p>
     <ion-list>
-      <ion-item *ngFor="let rest of restaurants | async"
+      <ion-item *ngFor="let rest of regNearByRestaurants"
       detail-push navPush="ViewPlacePage" [navParams]="{rest:rest}"> 
-        <p><strong>{{rest.restaurantName}}</strong></p>
+        <p><strong>{{rest.restaurantName}} - {{rest.displayDistance}}km</strong></p>
         <p>{{rest.address}}</p>
       </ion-item>
     </ion-list>
