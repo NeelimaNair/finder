@@ -25,8 +25,6 @@ import { ChatServiceProvider } from '../providers/chat-service/chat-service';
 import { SingletonUserServiceProvider } from '../providers/singleton-user-service/singleton-user-service';
 import { AutocompletePage } from '../pages/autocomplete/autocomplete';
 import { NearbyResturantService } from '../providers/restaurant-service/nearbyresturant-service';
-import { PlaceInfoPage } from '../pages/place-info/place-info';
-
 
 @NgModule({
   declarations: [
@@ -38,7 +36,6 @@ import { PlaceInfoPage } from '../pages/place-info/place-info';
     RoomsPage,
     MessagesPage,
     AutocompletePage,
-    PlaceInfoPage
   ],
   imports: [
     BrowserModule,
@@ -59,7 +56,6 @@ import { PlaceInfoPage } from '../pages/place-info/place-info';
     RoomsPage,
     MessagesPage,
     AutocompletePage,
-    PlaceInfoPage
   ],
   providers: [
     StatusBar,

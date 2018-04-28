@@ -6,14 +6,6 @@ import { Restaurant } from '../../model/restaurant';
 import { SingletonUserServiceProvider } from '../../providers/singleton-user-service/singleton-user-service';
 import { MessagesPage } from '../messages/messages';
 import { ChatServiceProvider } from '../../providers/chat-service/chat-service';
-// import { AgmMap, AgmMarker } from '@agm/core';
-
-/**
- * Generated class for the ViewPlacePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -32,25 +24,29 @@ export class ViewPlacePage {
     phone:'',
     unit:''
   }
-  // location: { lat: number, lng: number } = { lat: 1.3243817999999998, lng: 103.86480030000001 };
-  lat : number;
-  lng : number;
-  // lat: number = 51.678418;
-  // lng: number = 7.809007;
+  map: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public db : AngularFireDatabase,
     public singletonUser: SingletonUserServiceProvider, public csp: ChatServiceProvider
   ) {
       this.restaurant = this.navParams.get('rest');
-      console.log(this.restaurant)
-      // this.lat = +this.restaurant.latitude;
-      // this.lng = +this.restaurant.longitude;
+  }
+
+  createMarker(lat,lng){
+    let marker = new google.maps.Marker({
+      position: { lat, lng },
+      animation: google.maps.Animation.DROP,
+      map: this.map,
+      title: 'Resturant'
+    });
   }
 
   ionViewDidLoad() {
-    // this.restaurant = this.navParams.get('rest');
-    // console.log('Resturant',this.restaurant);
-    
+    if(this.restaurant){
+      const pyrmont = new google.maps.LatLng(this.restaurant.latitude,this.restaurant.longitude);
+      this.map = new google.maps.Map(document.getElementById('view-place-map'), { center: pyrmont, zoom: 16 });
+      this.createMarker(this.restaurant.latitude,this.restaurant.longitude);
+    }
   }
 
   beginChat(){

@@ -15,7 +15,6 @@ import { ChatServiceProvider } from '../../providers/chat-service/chat-service';
 import { MessagesPage } from '../messages/messages';
 import { SingletonUserServiceProvider } from '../../providers/singleton-user-service/singleton-user-service';
 import { NearbyResturantService } from '../../providers/restaurant-service/nearbyresturant-service';
-// import _ from 'lodash';
 declare var google;
 
 @Component({
@@ -29,7 +28,6 @@ export class HomePage {
   userName: string;
   restaurant:   Restaurant;
   location: { lat: number, lng: number } = { lat: 1.292304, lng: 103.7765534 };
-  // nearbyResturants: Array<NearbyRestaurant>;
   nearbyRestaurants: NearbyRestaurant[] = [];
   map: any;
 
@@ -77,7 +75,6 @@ export class HomePage {
   }
 
   createMarker(lat,lng, index){
-    // console.log(index.toString())
     let marker = new google.maps.Marker({
       position: { lat, lng },
       animation: google.maps.Animation.DROP,
