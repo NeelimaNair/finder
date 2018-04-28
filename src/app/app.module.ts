@@ -24,6 +24,7 @@ import { MessagesPage } from '../pages/messages/messages';
 import { ChatServiceProvider } from '../providers/chat-service/chat-service';
 import { SingletonUserServiceProvider } from '../providers/singleton-user-service/singleton-user-service';
 import { AutocompletePage } from '../pages/autocomplete/autocomplete';
+import { NearbyResturantService } from '../providers/restaurant-service/nearbyresturant-service';
 import { PlaceInfoPage } from '../pages/place-info/place-info';
 
 
@@ -68,7 +69,7 @@ import { PlaceInfoPage } from '../pages/place-info/place-info';
     Geolocation,
     ChatServiceProvider,
     SingletonUserServiceProvider,
-    // AgmCoreModule
+    NearbyResturantService
   ]
 })
 export class AppModule {}

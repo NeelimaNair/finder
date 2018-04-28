@@ -14,6 +14,7 @@ import { RoomsPage } from '../rooms/rooms';
 import { ChatServiceProvider } from '../../providers/chat-service/chat-service';
 import { MessagesPage } from '../messages/messages';
 import { SingletonUserServiceProvider } from '../../providers/singleton-user-service/singleton-user-service';
+import { NearbyResturantService } from '../../providers/restaurant-service/nearbyresturant-service';
 // import _ from 'lodash';
 declare var google;
 
@@ -28,7 +29,8 @@ export class HomePage {
   userName: string;
   restaurant:   Restaurant;
   location: { lat: number, lng: number } = { lat: 1.292304, lng: 103.7765534 };
-  nearbyResturants: NearbyRestaurant;
+  // nearbyResturants: Array<NearbyRestaurant>;
+  nearbyRestaurants: NearbyRestaurant[] = [];
   map: any;
 
   constructor(
@@ -37,7 +39,8 @@ export class HomePage {
     private restaurantService: RestaurantServiceProvider, 
     private geolocation: Geolocation, 
     private csp: ChatServiceProvider,
-    private singletonUser: SingletonUserServiceProvider
+    private singletonUser: SingletonUserServiceProvider,
+    private nearbyRestaurantService: NearbyResturantService,
   ) {
       this.userUid = this.singletonUser.getUserUid();
       this.userName = this.singletonUser.getUserName();
@@ -49,7 +52,6 @@ export class HomePage {
             key: c.payload.key, ...c.payload.val()         
           }))       
       });       
-
   }
 
   onLoadNewPlace(){    
@@ -85,12 +87,7 @@ export class HomePage {
   ionViewDidLoad(){
     console.log('Ion View Did Load');
     let self = this;
-    //Loading All Resturants
-    const  restRef:firebase.database.Reference  = firebase.database().ref('restaurants/'+this.userUid);
-    restRef.on('value', restSnapshot => {
-      console.log('Restaurant set');
-        this.restaurant = restSnapshot.val();
-    });
+   
     //Current Location
     this.geolocation.getCurrentPosition().then((location) => {
       console.log(location)
@@ -103,7 +100,7 @@ export class HomePage {
     const pyrmont = new google.maps.LatLng(this.location.lat,this.location.lng);
     this.map = new google.maps.Map(document.getElementById('map'), { center: pyrmont, zoom: 15 });
     this.createMarker(this.location.lat,this.location.lng);
-
+    
     const request = {
       location: pyrmont,
       radius: '500',
@@ -113,16 +110,27 @@ export class HomePage {
      placesService.textSearch(request, (results, status) => {
        if(status === 'OK'){
          results.map(resturant => {
-           console.log(resturant)
            const restLat = resturant.geometry.location.lat()
            const restLng = resturant.geometry.location.lng()
+           resturant.lat = resturant.geometry.location.lat();
+           resturant.lng = resturant.geometry.location.lng();
            self.createMarker(restLat,restLng)
-          //  self.nearbyResturants.push(resturant);
+           self.nearbyRestaurantService.addPlace(resturant);
          })
        }
      });
 
-     console.log(this.nearbyResturants);
+    //Loading All Resturants
+    const  restRef:firebase.database.Reference  = firebase.database().ref('restaurants/'+this.userUid);
+    restRef.on('value', restSnapshot => {
+        this.restaurant = restSnapshot.val();
+    });
+     console.log('Resturants',this.restaurants)
+  }
+
+
+  ionViewDidEnter(){
+    this.nearbyRestaurants = this.nearbyRestaurantService.getPlaces();
   }
 
 }

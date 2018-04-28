@@ -1,10 +1,10 @@
 export interface NearbyRestaurant {
-    userUid: string;
-    restaurantName?:String;
-    address:string;
-    longitude:number;
-    latitude:number;
-    cuisine:string;
-    phone:string;
-    unit:string;
+    id: string,
+    formatted_address: string;
+    name: string;
+    icon: string;
+    place_id: string;
+    rating: number;
+    lat: number;
+    lng: number;
 }
