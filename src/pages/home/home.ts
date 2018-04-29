@@ -104,7 +104,7 @@ export class HomePage {
    
     //Current Location
     this.geolocation.getCurrentPosition().then((location) => {
-      console.log(location)
+      console.log('current location::'+location.coords.latitude+'::'+location.coords.longitude)
       this.location.lat = location.coords.latitude;
       this.location.lng = location.coords.longitude;
      }).catch((error) => {
@@ -163,6 +163,9 @@ export class HomePage {
             }
             
         });
+        this.regNearByRestaurants = this.regNearByRestaurants.sort((a,b) =>
+         {return a.distance - b.distance;}     
+      );
         console.log('Done#################'+this.regNearByRestaurants);        
      });
      
