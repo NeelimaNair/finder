@@ -37,7 +37,7 @@
     </ion-list>
     <p padding-left>Other Nearby Resturants</p>
     <ion-grid>
-      <ion-row *ngFor="let rest of nearbyRestaurants" detail-push navPush="PlaceInfoPage" [navParams]="{rest:rest}">
+      <ion-row *ngFor="let rest of nearbyRestaurants | slice:0:20" detail-push navPush="PlaceInfoPage" [navParams]="{rest:rest}">
         <ion-col col-1 >
             <p><strong>{{rest.index}}</strong></p>
         </ion-col>

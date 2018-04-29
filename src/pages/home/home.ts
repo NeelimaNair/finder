@@ -1,19 +1,19 @@
-import { Component, ViewChild ,ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { NewPlacePage } from '../new-place/new-place';
 import { EditPlacePage } from '../edit-place/edit-place';
 import { Observable } from 'rxjs/Observable'; 
 import firebase from 'firebase';
-import { Geolocation, GeolocationOptions ,Geoposition ,PositionError  } from '@ionic-native/geolocation';
-import {} from '@types/googlemaps';
+import { Geolocation } from '@ionic-native/geolocation';
+// import {} from '@types/googlemaps';
 
 import { Restaurant } from '../../model/restaurant';
 import { NearbyRestaurant } from '../../model/nearbyRestaurant';
 import { RegNearByRestaurant } from '../../model/regNearByRestaurant';
 import { RestaurantServiceProvider} from '../../providers/restaurant-service/restaurant-service';
 import { RoomsPage } from '../rooms/rooms';
-import { ChatServiceProvider } from '../../providers/chat-service/chat-service';
-import { MessagesPage } from '../messages/messages';
+// import { ChatServiceProvider } from '../../providers/chat-service/chat-service';
+// import { MessagesPage } from '../messages/messages';
 import { SingletonUserServiceProvider } from '../../providers/singleton-user-service/singleton-user-service';
 import { NearbyResturantService } from '../../providers/restaurant-service/nearbyresturant-service';
 declare var google;
@@ -40,7 +40,7 @@ export class HomePage {
     public navParams: NavParams,
     private restaurantService: RestaurantServiceProvider, 
     private geolocation: Geolocation, 
-    private csp: ChatServiceProvider,
+    // private csp: ChatServiceProvider,
     private singletonUser: SingletonUserServiceProvider,
     private nearbyRestaurantService: NearbyResturantService,
   ) {
@@ -79,7 +79,7 @@ export class HomePage {
   }
 
   createMarker(lat,lng, index){
-    let marker = new google.maps.Marker({
+    new google.maps.Marker({
       position: { lat, lng },
       animation: google.maps.Animation.DROP,
       label: index.toString(),
@@ -88,15 +88,14 @@ export class HomePage {
     });
   }
 
-  // customMarker(lat,lng){
-  //   let marker = new google.maps.Marker({
-  //     position: { lat, lng },
-  //     animation: google.maps.Animation.DROP,
-  //     label: 'R',
-  //     map: this.map,
-  //     title: 'Resturant'
-  //   });
-  // }
+  customMarker(lat,lng){
+    new google.maps.Marker({
+      position: { lat, lng },
+      icon: 'https://maps.google.com/mapfiles/kml/shapes/library_maps.png',
+      map: this.map,
+      title: 'My Location'
+    });
+  }
 
   ionViewDidLoad(){
     console.log('Ion View Did Load');
@@ -113,7 +112,7 @@ export class HomePage {
 
     const pyrmont = new google.maps.LatLng(this.location.lat,this.location.lng);
     this.map = new google.maps.Map(document.getElementById('map'), { center: pyrmont, zoom: 12 });
-    this.createMarker(this.location.lat,this.location.lng,21);
+    this.customMarker(this.location.lat,this.location.lng);
     
     const request = {
       location: pyrmont,
@@ -172,7 +171,7 @@ export class HomePage {
         this.regNearByRestaurants = this.regNearByRestaurants.sort((a,b) =>
          {return a.distance - b.distance;}     
       );
-        console.log('Done#################'+this.regNearByRestaurants);        
+        console.log('Done#################',this.regNearByRestaurants);        
      });
      
 

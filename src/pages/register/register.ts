@@ -4,6 +4,7 @@ import { User } from '../../model/user';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { SingletonUserServiceProvider } from '../../providers/singleton-user-service/singleton-user-service';
 import { HomePage } from '../home/home';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the RegisterPage page.
@@ -46,6 +47,10 @@ export class RegisterPage {
       }).present();
     }
     
+  }
+
+  goToLoginPage(){
+    this.navCtrl.push(LoginPage);
   }
 
 }

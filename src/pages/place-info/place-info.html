@@ -1,16 +1,15 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>place-info</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>{{restaurant?.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content text-center padding>
   <div id='place-map'></div>
-  <!-- <img src={{restaurant.icon}} height=100 width=100> -->
-  <h4 text-center>{{restaurant.name}}</h4>
-  <p text-center><strong>{{restaurant.formatted_address}}</strong></p>
+  <h4>{{restaurant?.name}}</h4>
+  <p><strong>{{restaurant?.formatted_address}}</strong></p>
   
 </ion-content>

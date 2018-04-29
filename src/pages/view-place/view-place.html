@@ -1,27 +1,14 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>{{restaurant?.restaurantName}}</ion-title>
   </ion-navbar>
 </ion-header>
-
-
-<ion-content padding>
-  <div id='view-place-map'></div>
-  <ion-item>
-          <ion-label>Unit #:</ion-label>
-        <ion-label>{{restaurant?.unit}}</ion-label>    
-  </ion-item>
-  <ion-item>
-      <ion-label>Address:</ion-label>
-    <ion-label>{{restaurant?.address}}</ion-label>    
-  </ion-item>
-  <ion-item>
-      <ion-label>Cuisine:</ion-label>
-    <ion-label>{{restaurant?.cuisine}}</ion-label>    
-  </ion-item>
-  <ion-item>
-    <ion-label>Phone:</ion-label>
-    <ion-label>{{restaurant?.phone}}</ion-label>  
-  </ion-item>
-  <button ion-button block (click)="beginChat()">Click to Chat</button>
+<ion-content text-center padding>
+    <div id='view-place-map'></div>
+    <h4>{{restaurant?.unit}} {{restaurant?.address}}</h4>
+    <p><strong>Cuisine : </strong> {{restaurant?.cuisine}}</p>
+    <p><strong>Phone : </strong> {{restaurant?.phone}}</p>
+    <button ion-button icon-only (click)="beginChat()">
+      <ion-icon name="ios-chatbubbles-outline"></ion-icon>
+    </button>
 </ion-content>

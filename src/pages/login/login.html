@@ -1,5 +1,8 @@
 <ion-content padding>
-  <h1>Login Here</h1>
+  <div margin-top text-center >
+      <img padding src='assets/imgs/app-icon.png' height='100' />
+  </div>
+  <h1 text-center>Login Here</h1>
   <ion-item>
     <ion-label floating>Email Address</ion-label>
     <ion-input type="text" [(ngModel)]="user.email"></ion-input>
@@ -10,8 +13,8 @@
   </ion-item>
   <br />
   <div padding:16px>
-	<button ion-button block round (click)="login(user)">Login</button>
-	<button ion-button block round (click)="register()">Register</button>
+    <button ion-button block round (click)="login(user)">Login</button>
+    <button ion-button color='light' block margin-top round (click)="register()">Register</button>
   </div>
   
 </ion-content>
