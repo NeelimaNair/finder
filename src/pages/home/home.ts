@@ -149,7 +149,13 @@ export class HomePage {
               restaurantName:snapshot.restaurantName,
               address:snapshot.address ,
               displayDistance:  this.getDistanceFromLatLonInKm(snapshot.latitude,snapshot.longitude,
-                this.location.lat,this.location.lng).toFixed(3)
+                this.location.lat,this.location.lng).toFixed(3),
+                longitude:snapshot.longitude,
+                latitude:snapshot.latitude,
+                cuisine:snapshot.cuisine,
+                phone:snapshot.phone,
+                unit:snapshot.unit,
+                userUid: snapshot.userUid
             };
             var flag = true;
             this.regNearByRestaurants.forEach(element => {
